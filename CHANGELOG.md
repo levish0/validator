@@ -1,5 +1,10 @@
 ## Changelog
 
+## 0.21.0 (2026/07/09)
+
+- Replace dep proc-macro-error2 with proc-macro-error3
+- Edition 2024
+
 ## 0.20.0 (2025/01/20)
 
 - Implement `AsRegex` for `std::sync::LazyLock<Regex>`

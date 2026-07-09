@@ -127,11 +127,7 @@ fn can_nest_custom_validations() {
     }
 
     fn custom_fn(val: &String) -> Result<(), ValidationError> {
-        if val == "value" {
-            Ok(())
-        } else {
-            Err(ValidationError::new("Invalid string"))
-        }
+        if val == "value" { Ok(()) } else { Err(ValidationError::new("Invalid string")) }
     }
 
     let t = TestStruct { a: A { val: "value".to_string() } };
@@ -144,11 +140,7 @@ fn can_nest_custom_validations() {
 #[test]
 fn custom_fn_on_optional_types_work() {
     fn number_type_custom_fn(val: i16) -> Result<(), ValidationError> {
-        if val == 0 {
-            Ok(())
-        } else {
-            Err(ValidationError::new("custom"))
-        }
+        if val == 0 { Ok(()) } else { Err(ValidationError::new("custom")) }
     }
 
     #[derive(Validate)]

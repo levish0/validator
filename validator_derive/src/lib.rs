@@ -1,9 +1,9 @@
+use darling::FromDeriveInput;
 use darling::ast::Data;
 use darling::util::{Override, WithOriginal};
-use darling::FromDeriveInput;
 use proc_macro_error3::{abort, proc_macro_error};
-use quote::{quote, ToTokens};
-use syn::{parse_macro_input, DeriveInput, Field, GenericParam, Path, PathArguments};
+use quote::{ToTokens, quote};
+use syn::{DeriveInput, Field, GenericParam, Path, PathArguments, parse_macro_input};
 
 use tokens::cards::credit_card_tokens;
 use tokens::contains::contains_tokens;
@@ -21,7 +21,7 @@ use tokens::required::required_tokens;
 use tokens::schema::schema_tokens;
 use tokens::url::url_tokens;
 use types::*;
-use utils::{quote_use_stmts, CrateName};
+use utils::{CrateName, quote_use_stmts};
 
 mod tokens;
 mod types;
@@ -305,11 +305,7 @@ pub fn derive_validation(input: proc_macro::TokenStream) -> proc_macro::TokenStr
 
     let custom_context = if let Some(context) = &validation_data.context {
         if let Some(mutable) = validation_data.mutable {
-            if mutable {
-                quote!(&'v_a mut #context)
-            } else {
-                quote!(&'v_a #context)
-            }
+            if mutable { quote!(&'v_a mut #context) } else { quote!(&'v_a #context) }
         } else {
             quote!(&'v_a #context)
         }

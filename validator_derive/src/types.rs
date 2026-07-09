@@ -8,7 +8,7 @@ use quote::quote;
 use syn::spanned::Spanned;
 use syn::{Expr, Field, Ident, Path};
 
-use crate::utils::{get_attr, CrateName};
+use crate::utils::{CrateName, get_attr};
 
 static OPTIONS_TYPE: [&str; 3] = ["Option|", "std|option|Option|", "core|option|Option|"];
 
@@ -163,8 +163,7 @@ impl ValidateField {
                     count += 1;
                     if let Some(p) = p.path.segments.first() {
                         if let syn::PathArguments::AngleBracketed(ref params) = p.arguments {
-                            if let syn::GenericArgument::Type(ref ty) = params.args.first().unwrap()
-                            {
+                            if let syn::GenericArgument::Type(ty) = params.args.first().unwrap() {
                                 count = find_option(count, ty);
                             }
                         }

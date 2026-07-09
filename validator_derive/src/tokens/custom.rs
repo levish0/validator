@@ -11,11 +11,7 @@ pub fn custom_tokens(
     let fn_call = custom.function.unwrap();
 
     let args = if let Some(arg) = custom.use_context {
-        if arg {
-            quote!(#field_name, args)
-        } else {
-            quote!(#field_name)
-        }
+        if arg { quote!(#field_name, args) } else { quote!(#field_name) }
     } else {
         quote!(#field_name)
     };

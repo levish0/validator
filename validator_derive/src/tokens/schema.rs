@@ -6,11 +6,7 @@ use crate::utils::quote_message;
 pub fn schema_tokens(schema: Schema) -> proc_macro2::TokenStream {
     let fn_call = schema.function;
     let args = if let Some(args) = schema.use_context {
-        if args {
-            quote!(&self, args)
-        } else {
-            quote!(&self)
-        }
+        if args { quote!(&self, args) } else { quote!(&self) }
     } else {
         quote!(&self)
     };

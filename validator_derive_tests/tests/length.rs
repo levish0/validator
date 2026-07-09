@@ -171,7 +171,7 @@ fn can_validate_array_for_length() {
 #[cfg(feature = "indexmap")]
 #[test]
 fn can_validate_set_ref_for_length() {
-    use indexmap::{indexset, IndexSet};
+    use indexmap::{IndexSet, indexset};
     use serde_json::Value;
 
     #[derive(Debug, Validate)]
