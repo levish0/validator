@@ -265,13 +265,13 @@ impl ValidationData {
             for segment in &context.segments {
                 if let PathArguments::AngleBracketed(args) = &segment.arguments {
                     for arg in &args.args {
-                        if let syn::GenericArgument::Lifetime(lt) = arg {
-                            if lt.ident != "v_a" {
-                                abort! {
-                                    lt.ident, "Invalid argument reference";
-                                    note = "The lifetime `'{}` is not supported.", lt.ident;
-                                    help = "Please use the validator lifetime `'v_a`";
-                                }
+                        if let syn::GenericArgument::Lifetime(lt) = arg
+                            && lt.ident != "v_a"
+                        {
+                            abort! {
+                                lt.ident, "Invalid argument reference";
+                                note = "The lifetime `'{}` is not supported.", lt.ident;
+                                help = "Please use the validator lifetime `'v_a`";
                             }
                         }
                     }
@@ -326,16 +326,16 @@ pub fn derive_validation(input: proc_macro::TokenStream) -> proc_macro::TokenStr
         .map(|f| ValidateField { crate_name: crate_name.clone(), ..f })
         .collect();
 
-    if let Some(nest_all_fields) = validation_data.nest_all_fields {
-        if nest_all_fields {
-            validation_fields = validation_fields
-                .iter_mut()
-                .map(|f| {
-                    f.nested = Some(true);
-                    f.to_owned()
-                })
-                .collect();
-        }
+    if let Some(nest_all_fields) = validation_data.nest_all_fields
+        && nest_all_fields
+    {
+        validation_fields = validation_fields
+            .iter_mut()
+            .map(|f| {
+                f.nested = Some(true);
+                f.to_owned()
+            })
+            .collect();
     }
 
     // generate `use` statements for all used validator traits

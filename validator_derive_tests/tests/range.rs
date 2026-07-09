@@ -171,7 +171,7 @@ fn value_out_of_range_fails_validation_with_crate_path() {
     let res = s.validate();
     assert!(res.is_err());
     let err = res.unwrap_err();
-    println!("{}", err);
+    println!("{err}");
     let errs = err.field_errors();
     assert!(errs.contains_key("val"));
     assert_eq!(errs["val"].len(), 1);

@@ -161,12 +161,11 @@ impl ValidateField {
 
                 if OPTIONS_TYPE.contains(&idents_of_path.as_str()) {
                     count += 1;
-                    if let Some(p) = p.path.segments.first() {
-                        if let syn::PathArguments::AngleBracketed(ref params) = p.arguments {
-                            if let syn::GenericArgument::Type(ty) = params.args.first().unwrap() {
-                                count = find_option(count, ty);
-                            }
-                        }
+                    if let Some(p) = p.path.segments.first()
+                        && let syn::PathArguments::AngleBracketed(ref params) = p.arguments
+                        && let syn::GenericArgument::Type(ty) = params.args.first().unwrap()
+                    {
+                        count = find_option(count, ty);
                     }
                 }
             }

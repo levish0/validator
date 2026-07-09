@@ -186,8 +186,7 @@ mod tests {
             assert_eq!(
                 input.validate_email(),
                 expected,
-                "Email `{}` was not classified correctly",
-                input
+                "Email `{input}` was not classified correctly"
             );
         }
     }
